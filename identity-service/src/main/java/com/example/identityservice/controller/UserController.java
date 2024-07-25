@@ -2,21 +2,30 @@ package com.example.identityservice.controller;
 
 import com.example.identityservice.dto.request.UserCreationRequest;
 import com.example.identityservice.dto.request.UserUpdateRequest;
+import com.example.identityservice.dto.response.ApiResponse;
+import com.example.identityservice.dto.response.UserResponse;
 import com.example.identityservice.entity.User;
 import com.example.identityservice.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import jakarta.validation.Valid;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE,makeFinal = true)
 public class UserController {
-    @Autowired
-    private UserService userService;
+    UserService userService;
     @PostMapping("/users")
-    User creatUser (@RequestBody UserCreationRequest request){
-        return userService.createRequest(request);
+    ApiResponse<User> creatUser (@RequestBody @Valid UserCreationRequest request){
+        return  ApiResponse.<User>builder()
+                .code(1000)
+                .message("create user successfully")
+                .result(userService.createUser(request))
+                .build();
     }
 
     @GetMapping
@@ -25,18 +34,20 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    User getUser(@PathVariable String userId){
+    UserResponse getUser(@PathVariable String userId){
         return userService.getUser(userId);
     }
 
     @PutMapping ("/{userId}")
-    User updateUser (@PathVariable String userId,@RequestBody UserUpdateRequest request){
+    UserResponse updateUser (@PathVariable String userId,@RequestBody UserUpdateRequest request){
         return userService.updateUser(userId,request);
     }
 
     @DeleteMapping("/{userId}")
-    String deleteUser(@PathVariable String userId){
+    ApiResponse deleteUser(@PathVariable String userId){
         userService.deleteUser(userId);
-        return "Delete successfuly";
+        return ApiResponse.builder()
+                .message("Delete successfully !")
+                .build();
     }
 }

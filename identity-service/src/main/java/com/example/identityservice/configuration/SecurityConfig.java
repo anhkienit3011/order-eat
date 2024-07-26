@@ -7,6 +7,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
@@ -28,6 +30,8 @@ public class SecurityConfig {
         // permit public endpoint "/user","..." without auth sercurity
         httpSecurity.authorizeHttpRequests(request ->
                 request.requestMatchers(HttpMethod.POST,PUBLIC_ENDPOINTS).permitAll()
+                        .requestMatchers(HttpMethod.GET,"/users")
+                        .hasAuthority("SCOPE_ADMIN")//config just ADMIN can access "/users"
                         .anyRequest().authenticated());
 
         // config for app to verify request by jwt
@@ -49,5 +53,10 @@ public class SecurityConfig {
                 .build()
                 ;
     };
+
+    @Bean
+    PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder(10);
+    }
 
 }

@@ -10,6 +10,6 @@ import org.mapstruct.MappingTarget;
 @Mapper(componentModel = "spring") // to use in spring (DI)
 public interface UserMapper   {
     User toUser(UserCreationRequest request);
-    UserResponse toUserReponse(User user);
+    UserResponse toUserResponse(User user);
     void updateUser(@MappingTarget User user, UserUpdateRequest request);
 }

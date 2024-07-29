@@ -20,7 +20,7 @@ import java.util.List;
 public class PermissionController {
     PermissionService permissionService;
     @PostMapping
-    ApiResponse<PermissionResponse> create(@RequestBody PermissionRequest request){
+    ApiResponse<PermissionResponse> create(@RequestBody PermissionRequest request) {
         return ApiResponse.<PermissionResponse>builder()
                 .result(permissionService.create(request))
                 .build();
@@ -35,7 +35,7 @@ public class PermissionController {
 
     @DeleteMapping("/{permissionId}")
     ApiResponse<String> deletePermission(@PathVariable  String permissionId){
-        permissionService.deletePermision(permissionId);
+        permissionService.delete(permissionId);
         return ApiResponse.<String>builder().result("Permission has been deleted").build();
     }
 }

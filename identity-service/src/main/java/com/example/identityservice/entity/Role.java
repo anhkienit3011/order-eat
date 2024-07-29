@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
@@ -20,5 +19,5 @@ public class Role {
     String description;
 
     @ManyToMany
-    Set<Permision> permisions;
+    Set<Permission> permissions;
 }

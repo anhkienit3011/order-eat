@@ -1,7 +1,7 @@
 package com.example.identityservice.service;
 
 import com.example.identityservice.dto.request.AuthenticationRequest;
-import com.example.identityservice.dto.request.IntrospecRequest;
+import com.example.identityservice.dto.request.IntrospectRequest;
 import com.example.identityservice.dto.response.AuthenticationResponse;
 import com.example.identityservice.dto.response.IntrospecResponse;
 import com.example.identityservice.entity.User;
@@ -22,7 +22,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import java.text.ParseException;
 import java.time.Instant;
@@ -59,7 +58,7 @@ public class AuthenticationService {
 
     }
 
-    public IntrospecResponse introspect(IntrospecRequest request)
+    public IntrospecResponse introspect(IntrospectRequest request)
             throws ParseException, JOSEException {
         var token = request.getToken();
 
@@ -107,8 +106,8 @@ public class AuthenticationService {
     // build scope for jwt (role)
     private String buildScope(User user){
         StringJoiner stringJoiner = new StringJoiner("");
-        if (!CollectionUtils.isEmpty(user.getRoles()))
-            user.getRoles().forEach(stringJoiner::add);
+//        if (!CollectionUtils.isEmpty(user.getRoles()))
+//            user.getRoles().forEach(stringJoiner::add);
         return stringJoiner.toString();
     }
 }

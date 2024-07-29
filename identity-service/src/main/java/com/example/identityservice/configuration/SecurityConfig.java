@@ -32,7 +32,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        // permit public endpoint "/user","..." without auth sercurity
+        // permit public endpoint "/user","..." without auth security
         httpSecurity.authorizeHttpRequests(request ->
                 request.requestMatchers(HttpMethod.POST,PUBLIC_ENDPOINTS).permitAll()
 //                        .requestMatchers(HttpMethod.GET,"/users")
@@ -44,6 +44,7 @@ public class SecurityConfig {
                 oath2.jwt(jwtConfigurer ->
                         jwtConfigurer.decoder(jwtDecoder())
                                 .jwtAuthenticationConverter(jwtAuthenticationConverter()))
+                        .authenticationEntryPoint(new JwtAuthenticationEntryPoint())
                 );
 
         // disable csrf

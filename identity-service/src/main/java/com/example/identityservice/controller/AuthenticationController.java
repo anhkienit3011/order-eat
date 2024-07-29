@@ -1,7 +1,7 @@
 package com.example.identityservice.controller;
 
 import com.example.identityservice.dto.request.AuthenticationRequest;
-import com.example.identityservice.dto.request.IntrospecRequest;
+import com.example.identityservice.dto.request.IntrospectRequest;
 import com.example.identityservice.dto.response.ApiResponse;
 import com.example.identityservice.dto.response.AuthenticationResponse;
 import com.example.identityservice.dto.response.IntrospecResponse;
@@ -33,7 +33,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/introspect")
-    ApiResponse<IntrospecResponse> introspec(@RequestBody IntrospecRequest request)
+    ApiResponse<IntrospecResponse> introspec(@RequestBody IntrospectRequest request)
             throws ParseException, JOSEException {
         var result = authenticationService.introspect(request);
         return ApiResponse.<IntrospecResponse>builder()

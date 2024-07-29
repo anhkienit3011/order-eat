@@ -2,5 +2,7 @@ package com.example.identityservice.enums;
 
 public enum Role {
     ADMIN,
-    USER
+    USER,
+    SHOP,
+    SHIPPER
 }

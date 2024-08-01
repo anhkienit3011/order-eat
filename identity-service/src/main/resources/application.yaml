@@ -4,6 +4,8 @@ server:
     context-path: /identity
 
 spring:
+  application:
+    name: identity-service
   datasource:
     url: "jdbc:mysql://localhost:3306/identity_service"
     username: root
@@ -15,3 +17,5 @@ spring:
 
 jwt:
   signerKey: "06V6DMoVfwudVBBiMk2SMGYAJZo5MkYYyqqAQbewdunzlRohBvEmDkjMNnqE4g81"
+  valid-duaration: 3600 # in second
+  refreshable-duaration : 360000 # second

@@ -4,12 +4,12 @@ server:
     context-path: /shop
 spring:
   application:
-    name: shop-service
+    name: restaurant-service
   datasource:
-    url: "jdbc:mysql://localhost:3306/shop_service"
+    url: "jdbc:mysql://localhost:3306/restaurant_service"
     username: root
     password: root
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     show-sql: true

@@ -88,6 +88,7 @@
     </dependencies>
     <dependencyManagement>
         <dependencies>
+<!--            //thư viện để add giao tiếp giữa các micro service-->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>

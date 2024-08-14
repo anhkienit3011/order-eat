@@ -1,9 +1,7 @@
-package com.example.restaurantservice.sys.domain.dto.response;
+package com.example.identityservice.sys.domain.dto.response;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
-import java.util.List;
 @Data
 @Builder
 @NoArgsConstructor
@@ -18,5 +16,5 @@ public class RestaurantResponseDto {
     String address;
     String phone;
     String email;
-    List<MenuResponseDto> menus;
+
 }

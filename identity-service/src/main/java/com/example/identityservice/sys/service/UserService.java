@@ -3,6 +3,11 @@ package com.example.identityservice.sys.service;
 import java.util.HashSet;
 import java.util.List;
 
+import com.example.identityservice.common.constant.PredefinedRole;
+import com.example.identityservice.sys.domain.dto.request.RestaurantRequest;
+import com.example.identityservice.sys.domain.entity.Role;
+import com.example.identityservice.sys.domain.mapper.RestaurantMapper;
+import com.example.identityservice.sys.repository.httpclient.RestaurantClient;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,7 +19,7 @@ import com.example.identityservice.sys.domain.dto.request.UserCreationRequest;
 import com.example.identityservice.sys.domain.dto.request.UserUpdateRequest;
 import com.example.identityservice.sys.domain.dto.response.UserResponse;
 import com.example.identityservice.sys.domain.entity.User;
-import com.example.identityservice.common.enums.Role;
+
 import com.example.identityservice.exception.AppException;
 import com.example.identityservice.exception.ErrorCode;
 import com.example.identityservice.sys.domain.mapper.UserMapper;
@@ -35,17 +40,45 @@ public class UserService {
     UserMapper userMapper;
     PasswordEncoder passwordEncoder;
     RoleRepository roleRepository;
+    RestaurantClient restaurantClient;
+    RestaurantMapper restaurantMapper;
 
     public UserResponse createUser(UserCreationRequest request) {
         User user = userMapper.toUser(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
         // set role
-        HashSet<String> roles = new HashSet<>();
-        roles.add(Role.USER.name());
+        HashSet<Role> roles = new HashSet<>();
+        roleRepository.findById(PredefinedRole.USER_ROLE).ifPresent(roles::add);
 
         try {
+            user.setRoles(roles);
             userRepository.save(user);
+        } catch (DataIntegrityViolationException e) {
+            throw new AppException(ErrorCode.USER_EXISTED);
+        }
+
+        return userMapper.toUserResponse(user);
+    }
+    public UserResponse createRestaurant(RestaurantRequest request) {
+        User user = userMapper.toUser(request);
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+
+        // set role
+        HashSet<Role> roles = new HashSet<>();
+        roleRepository.findById(PredefinedRole.RESTAURANT_ROLE).ifPresent(roles::add);
+
+        try {
+            user.setRoles(roles);
+            userRepository.save(user);
+
+            var restaurantRequest = restaurantMapper.toRestaurantCreationRequest(request);
+            restaurantRequest.setUserId(user.getId());
+            log.info(restaurantRequest.toString());
+            var restaurantResponse = restaurantClient.createRestaurant(restaurantRequest);
+
+            log.info(restaurantResponse.toString());
+
         } catch (DataIntegrityViolationException e) {
             throw new AppException(ErrorCode.USER_EXISTED);
         }

@@ -60,13 +60,12 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public ResponseEntity<HttpStatus> addRestaurant(RestaurantRequestDto request) {
+    public RestaurantResponseDto addRestaurant(RestaurantRequestDto request) {
 
        var restaurant = restaurantMapper.toRestaurant(request);
        restaurantRepository.save(restaurant);
-       return ResponseEntity
-               .status(HttpStatus.OK)
-               .build();
+
+        return restaurantMapper.toRestaurantResponse(restaurant);
 
     }
 

@@ -20,7 +20,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     private static final String[] PUBLIC_ENDPOINTS = {
-        "/users", "/auth/token", "/auth/introspect", "/my-info", "/auth/logout", "/auth/refresh"
+        "/users","/users/create-restaurant", "/auth/token", "/auth/introspect", "/my-info", "/auth/logout", "/auth/refresh"
     };
 
     @Autowired

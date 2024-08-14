@@ -20,6 +20,8 @@ public class Menu {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
+    String userId;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
     Restaurant restaurant ;

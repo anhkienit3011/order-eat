@@ -10,6 +10,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class RestaurantProjection {
     Integer id;
+    String userId;
     String name;
     String description;
     String address;

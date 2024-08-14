@@ -2,6 +2,8 @@ package com.example.identityservice.sys.controller;
 
 import java.util.List;
 
+import com.example.identityservice.sys.domain.dto.request.RestaurantCreationRequest;
+import com.example.identityservice.sys.domain.dto.request.RestaurantRequest;
 import jakarta.validation.Valid;
 
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,6 +34,14 @@ public class UserController {
                 .code(1000)
                 .message("create user successfully")
                 .result(userService.createUser(request))
+                .build();
+    }
+    @PostMapping("/create-restaurant")
+    ApiResponse<UserResponse> createRestaurant(@RequestBody @Valid RestaurantRequest request) {
+        return ApiResponse.<UserResponse>builder()
+                .code(1000)
+                .message("create user successfully")
+                .result(userService.createRestaurant(request))
                 .build();
     }
 

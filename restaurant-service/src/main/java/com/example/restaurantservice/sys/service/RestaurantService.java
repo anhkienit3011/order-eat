@@ -14,6 +14,6 @@ public interface RestaurantService {
     ResponseEntity<RestaurantResponseDto> findRestaurantByName(String name);
     ResponseEntity<RestaurantResponseDto>findByPhone(String phone);
     ResponseEntity<List<RestaurantResponseDto>>findByAddress(String address);
-    ResponseEntity<HttpStatus> addRestaurant(RestaurantRequestDto request);
+    RestaurantResponseDto addRestaurant(RestaurantRequestDto request);
     ResponseEntity<List<RestaurantProjection>> findRestaurantsByIds(List<Integer> ids);
 }

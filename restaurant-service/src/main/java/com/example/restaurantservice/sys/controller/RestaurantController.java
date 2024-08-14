@@ -2,6 +2,7 @@ package com.example.restaurantservice.sys.controller;
 
 
 import com.example.restaurantservice.sys.domain.dto.request.RestaurantRequestDto;
+import com.example.restaurantservice.sys.domain.dto.response.ApiResponse;
 import com.example.restaurantservice.sys.domain.dto.response.RestaurantResponseDto;
 import com.example.restaurantservice.sys.service.RestaurantService;
 import lombok.AccessLevel;
@@ -15,16 +16,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/restaurants")
+//@RequestMapping("/restaurants")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
 public class RestaurantController {
     RestaurantService restaurantService;
 
-    @PostMapping("/add")
-    ResponseEntity<HttpStatus> addRestaurant(@RequestBody RestaurantRequestDto request){
-        return restaurantService.addRestaurant(request);
+    @PostMapping("/create")
+    ApiResponse<RestaurantResponseDto> addRestaurant(@RequestBody RestaurantRequestDto request){
+        return ApiResponse.<RestaurantResponseDto>builder()
+                .result(restaurantService.addRestaurant(request))
+                .build();
     }
 
     @GetMapping

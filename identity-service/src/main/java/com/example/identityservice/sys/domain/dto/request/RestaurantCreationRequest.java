@@ -1,4 +1,4 @@
-package com.example.restaurantservice.sys.domain.dto.request;
+package com.example.identityservice.sys.domain.dto.request;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -7,8 +7,10 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@FieldDefaults(level = AccessLevel.PRIVATE)
-public class RestaurantRequestDto {
+@FieldDefaults(level = AccessLevel.PRIVATE) // all fields are private
+public class RestaurantCreationRequest {
+
+
     String name;
     String userId;
     String description;

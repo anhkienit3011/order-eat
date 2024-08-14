@@ -1,5 +1,6 @@
 package com.example.identityservice.sys.domain.mapper;
 
+import com.example.identityservice.sys.domain.dto.request.RestaurantRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -17,4 +18,6 @@ public interface UserMapper {
 
     @Mapping(target = "roles", ignore = true)
     void updateUser(@MappingTarget User user, UserUpdateRequest request);
+
+    User toUser(RestaurantRequest request);
 }

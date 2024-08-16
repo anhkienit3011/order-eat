@@ -13,6 +13,8 @@ import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 
 import com.example.identityservice.sys.domain.dto.request.UserCreationRequest;
@@ -86,7 +88,7 @@ public class UserService {
         return userMapper.toUserResponse(user);
     }
 
-    @PreAuthorize("hasRole('ADMIN')") // check role before go into method
+    @PreAuthorize("hasRole('ROLE_ADMIN')") // check role before go into method
     // @PreAuthorize("hasAuthority('READ_DATA')") //check permission before go into method
     public List<UserResponse> getAllUsers() {
         log.info("In method get Users");
@@ -105,6 +107,7 @@ public class UserService {
         // get info user who  logging in
         var context = SecurityContextHolder.getContext();
         String name = context.getAuthentication().getName();
+
         return userMapper.toUserResponse(
                 userRepository.findByUsername(name).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED)));
     }

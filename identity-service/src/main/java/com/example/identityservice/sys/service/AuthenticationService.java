@@ -97,6 +97,8 @@ public class AuthenticationService {
                         Instant.now().plus(VALID_DUARATION, ChronoUnit.SECONDS).toEpochMilli())) //  token exist time
                 .jwtID(UUID.randomUUID().toString())
                 .claim("scope", buildScope(user)) // add customer claim
+                .claim("userId",user.getId())
+//                .claim("email",user.)
                 .build();
 
         Payload payload = new Payload(jwtClaimsSet.toJSONObject());

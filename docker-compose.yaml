@@ -1,0 +1,52 @@
+version: "4.33.1"
+
+services:
+  user-db:
+    image: mysql:8.0
+    container_name: user-db
+    restart: on-failure
+    environment:
+      - MYSQL_DATABASE=user_service
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=user
+    volumes:
+      - user_db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  restaurant-db:
+    image: mysql:8.0
+    container_name: restaurant-db
+    restart: on-failure
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_DATABASE=restaurant_service
+      - MYSQL_ROOT_PASSWORD = restaurant
+      - MYSQL_USER=restaurant
+      - MYSQL_PASSWORD=restaurant
+    volumes:
+      - restaurant_db_data:/var/lib/mysql
+
+  identity-db:
+    image: mysql:8.0
+    container_name: identity-db
+    restart: on-failure
+    ports:
+      - "3308:3306"
+    environment:
+      - MYSQL_DATABASE=identity_service
+      - MYSQL_USER=identity
+      - MYSQL_PASSWORD=identity
+    volumes:
+      - identity_db_data:/var/lib/mysql
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+volumes:
+  user_db_data:
+  restaurant_db_data:
+  identity_db_data:

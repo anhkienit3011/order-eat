@@ -1,16 +1,17 @@
 package com.example.userservice.exception;
 
+import java.util.Map;
+import java.util.Objects;
 
-import com.example.userservice.sys.domain.dto.response.ApiResponse;
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.internal.engine.ConstraintViolationImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import java.util.Map;
-import java.util.Objects;
+import com.example.userservice.sys.domain.dto.response.ApiResponse;
+
+import lombok.extern.slf4j.Slf4j;
 
 @ControllerAdvice // khai bao de spring biet xu ly exception
 @Slf4j
@@ -76,16 +77,16 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(apiResponse);
     }
 
-//    @ExceptionHandler(value = AccessDeniedException.class)
-//    ResponseEntity<ApiResponse> handlingAccessDeniedException(AccessDeniedException exception) {
-//        ErrorCode errorCode = ErrorCode.UNAUTHORIZED;
-//
-//        return ResponseEntity.status(errorCode.getStatusCode())
-//                .body(ApiResponse.builder()
-//                        .code(errorCode.getCode())
-//                        .message(errorCode.getMessage())
-//                        .build());
-//    }
+    //    @ExceptionHandler(value = AccessDeniedException.class)
+    //    ResponseEntity<ApiResponse> handlingAccessDeniedException(AccessDeniedException exception) {
+    //        ErrorCode errorCode = ErrorCode.UNAUTHORIZED;
+    //
+    //        return ResponseEntity.status(errorCode.getStatusCode())
+    //                .body(ApiResponse.builder()
+    //                        .code(errorCode.getCode())
+    //                        .message(errorCode.getMessage())
+    //                        .build());
+    //    }
 
     private String mapAttribute(String message, Map<String, Object> attributes) {
         String minValue = String.valueOf(attributes.get(MIN_ATTRIBUTE));

@@ -1,13 +1,15 @@
 package com.example.userservice.sys.domain.entity;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.*;
+
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.math.BigDecimal;
-
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -19,12 +21,14 @@ public class OrderItem {
     Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id",nullable = false)
+    @JoinColumn(name = "order_id", nullable = false)
     Order order;
-    @Builder.Default
-    int menuItemId =0;
 
     @Builder.Default
-    int quantity =0;
+    int menuItemId = 0;
+
+    @Builder.Default
+    int quantity = 0;
+
     BigDecimal unitPrice;
 }

@@ -1,13 +1,13 @@
 package com.example.userservice.sys.domain.entity;
 
-import jakarta.persistence.*;
-import lombok.*;
-import lombok.experimental.FieldDefaults;
-import org.hibernate.annotations.ColumnDefault;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+
+import jakarta.persistence.*;
+
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 @Entity
 @Data
@@ -22,16 +22,20 @@ public class Order {
     Integer id;
 
     @Builder.Default
-    int userId =0 ;
+    String userId = null;
 
     @Builder.Default
-    int restaurantId =0;
+    int restaurantId = 0;
 
     @Enumerated(EnumType.STRING)
     OrderStatus status;
+
+    @Column(name = "created_at")
+    @Builder.Default
     LocalDateTime createAt = LocalDateTime.now();
 
     BigDecimal totalAmount;
+
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     List<OrderItem> orderItems;
 }

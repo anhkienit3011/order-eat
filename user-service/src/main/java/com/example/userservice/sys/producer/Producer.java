@@ -1,10 +1,11 @@
 package com.example.userservice.sys.producer;
 
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.stereotype.Service;
+
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.stereotype.Service;
 
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -14,9 +15,9 @@ public class Producer {
     String topicExchange;
     String routingKey;
 
-    public void sendMessage(NotificationMessage message){
+    public void sendMessage(NotificationMessage message) {
         log.info("TopicExchange {}, RoutingKey {}", topicExchange, routingKey);
         log.info("Notification  --> {}", message);
-        rabbitTemplate.convertAndSend(topicExchange,routingKey,message);
+        rabbitTemplate.convertAndSend(topicExchange, routingKey, message);
     }
 }
